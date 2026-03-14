@@ -44,7 +44,7 @@ def load_data():
     """).df()
 
     submissions = con.execute("""
-        SELECT * FROM main_staging_submissions
+        SELECT * FROM main_staging.stg_submissions
     """).df()
 
     con.close()
