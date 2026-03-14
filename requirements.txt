@@ -1,0 +1,8 @@
+duckdb==1.2.1
+pandas
+plotly
+streamlit
+scikit-learn
+anthropic
+python-dotenv
+requests
