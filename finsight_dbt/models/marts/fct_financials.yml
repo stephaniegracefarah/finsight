@@ -24,8 +24,7 @@ models:
     tests:
       # Test 1: No duplicate filings per company per period per metric
       - dbt_utils.unique_combination_of_columns:
-          arguments:
-            combination_of_columns:
-              - ticker
-              - metric
-              - period_end
+          combination_of_columns:
+            - ticker
+            - metric
+            - period_end

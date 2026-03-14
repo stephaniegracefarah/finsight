@@ -26,7 +26,7 @@ class EdgarClient:
     - Throttle requests so we don't get rate-limited
     """
 
-    def __init__(self, requests_per_second: float = 0.1):
+    def __init__(self, requests_per_second: float = 2.0):
         self.user_agent = os.getenv("USER_AGENT")
         if not self.user_agent:
             raise ValueError("USER_AGENT must be set in your .env file")
