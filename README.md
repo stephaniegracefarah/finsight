@@ -126,6 +126,7 @@ cd finsight_dbt && dbt build        # transform + test
 cd ..
 python -m anomaly.detector          # detect anomalies
 python -m anomaly.explainer         # generate AI explanations
+bash promote.sh                     # promote dev → prod for dashboard
 
 # Launch dashboard
 streamlit run dashboard/app.py
