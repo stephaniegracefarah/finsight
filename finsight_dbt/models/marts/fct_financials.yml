@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: fct_financials
+    description: "Final analytical table with QoQ and YoY changes per company per quarter"
+    columns:
+      - name: ticker
+        description: "Stock ticker symbol"
+        tests:
+          - not_null
+      - name: metric
+        description: "GAAP metric name"
+        tests:
+          - not_null
+      - name: value_usd
+        description: "Reported value in USD"
+        tests:
+          - not_null
+      - name: period_end
+        description: "Period end date"
+        tests:
+          - not_null
+
+    tests:
+      # Test 1: No duplicate filings per company per period per metric
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - ticker
+              - metric
+              - period_end

@@ -1,7 +1,6 @@
 name: 'finsight_dbt'
 version: '1.0.0'
 profile: 'finsight_dbt'
-log-path: "../data/logs"  
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]

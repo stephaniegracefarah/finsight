@@ -1,0 +1,40 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "Raw tables loaded from SEC EDGAR by ingestion/load_raw.py"
+    schema: main
+    tables:
+      - name: raw_submissions
+        description: "Company metadata — name, CIK, SIC code, fiscal year end"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+          - name: cik
+            description: "SEC Central Index Key"
+          - name: entity_name
+            description: "Legal company name as registered with SEC"
+          - name: sic
+            description: "Standard Industrial Classification code"
+          - name: fiscal_year_end
+            description: "Month and day of fiscal year end e.g. 1231"
+
+      - name: raw_company_facts
+        description: "Financial facts from SEC EDGAR XBRL data"
+        columns:
+          - name: ticker
+            description: "Stock ticker symbol"
+          - name: metric
+            description: "GAAP metric name e.g. Revenues, Assets"
+          - name: val
+            description: "Reported value in USD"
+          - name: start
+            description: "Period start date"
+          - name: end
+            description: "Period end date"
+          - name: form
+            description: "Filing form type e.g. 10-Q, 10-K"
+          - name: filed
+            description: "Date the filing was submitted to SEC"
+          - name: frame
+            description: "EDGAR frame identifier e.g. CY2023Q1I"
