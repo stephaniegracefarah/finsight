@@ -56,4 +56,17 @@ deduplicated as (
     where rn = 1
 )
 
-select * from deduplicated
+select
+    ticker,
+    cik,
+    metric,
+    value_usd,
+    period_start,
+    period_end,
+    period_days,
+    form,
+    filed_date,
+    accession_number,
+    frame,
+    _loaded_at
+from deduplicated

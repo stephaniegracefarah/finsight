@@ -16,6 +16,7 @@ load_dotenv()
 # ------------------------------------------------------------------
 
 DB_PATH = "data/finsight_dev.duckdb"
+CLAUDE_MODEL = "claude-sonnet-4-20250514"
 EXPLAIN_SEVERITIES = ["HIGH", "CRITICAL"]
 
 logging.basicConfig(
@@ -145,7 +146,7 @@ Please provide a concise anomaly explanation in this exact JSON format:
 Return only valid JSON, no other text."""
 
     response = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model=CLAUDE_MODEL,
         max_tokens=1000,
         messages=[{"role": "user", "content": prompt}]
     )
