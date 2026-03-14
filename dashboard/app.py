@@ -10,7 +10,7 @@ import streamlit as st
 # Config
 # ------------------------------------------------------------------
 
-DB_PATH = "data/finsight_dev.duckdb"
+DB_PATH = "data/finsight_prod.duckdb"
 
 st.set_page_config(
     page_title="finsight",

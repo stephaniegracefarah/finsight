@@ -18,8 +18,9 @@ dbt_packages/
 logs/
 
 # DuckDB database files
-*.duckdb
-*.duckdb.wal
+data/finsight_dev.duckdb
+data/finsight_dev.duckdb.wal
+data/finsight_prod.duckdb.wal
 
 # OS
 .DS_Store
