@@ -5,6 +5,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import logging
 
 # ------------------------------------------------------------------
 # Config
@@ -59,6 +60,7 @@ try:
     explanations["period_end"] = pd.to_datetime(explanations["period_end"])
 
 except Exception as e:
+    logging.error(f"Failed to load data: {e}", exc_info=True)
     st.error(f"Failed to load data from database: {e}")
     st.info("Make sure the database file exists at `data/finsight_prod.duckdb` and has been populated by running the ingestion pipeline.")
     st.stop()
