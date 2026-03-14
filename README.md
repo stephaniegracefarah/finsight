@@ -89,6 +89,15 @@ Unsupervised, no labeled training data required, handles multivariate anomalies 
 **Why Claude API only for HIGH/CRITICAL?**
 Cost and signal control. The severity scoring layer acts as a filter — calling the API on all 435 rows would be expensive and noisy. Only anomalies that cross meaningful statistical thresholds get explanations.
 
+**What didn't work the first time**
+
+  The first version of the staging model used `select *` from the raw facts table with no period filtering. This caused the
+  anomaly detector to fire constantly on LYV revenue data, not because the data was anomalous, but because SEC EDGAR stores both true quarterly values and year-to-date cumulative totals in the same field with the same period end date. A Q3 YTD value of $3B sitting next to a true Q3 value of $900M looks like a 3x spike to a Z-score model.
+
+  The fix was the `period_days between 60 and 105` filter in `stg_company_facts` — true quarters are roughly 90 days, so
+  filtering on period length cleanly separates quarterly from cumulative values without needing to parse the `frame` field, which is inconsistently populated across companies.
+
+
 ---
 
 ## Data quality tests
@@ -163,15 +172,22 @@ finsight/
 ## Roadmap
 
 **v2**
-- Slack alerting for HIGH/CRITICAL anomalies
-- Analyst feedback loop for Isolation Forest retraining
-- dbt Cloud CI/CD integration
-- MotherDuck for cloud DuckDB
+  - Slack alerting for HIGH/CRITICAL anomalies
+  - Price/volume context via yfinance — flag whether an anomaly was already priced in at the time of filing, separating new
+  signal from known risk
+  - Longitudinal severity tracking — append detection results per run rather than overwriting, enabling multi-quarter trend
+  analysis per company
+  - Investor-framed AI explanations — reframe Claude output around investment implication, not just operational cause
+  - Analyst feedback loop for Isolation Forest retraining
+  - dbt Cloud CI/CD integration
+  - MotherDuck for cloud DuckDB
 
-**v3**
-- Real-time streaming quality checks
-- Multi-user dashboard with authentication
-- Support for private company data via secure upload
+  **v3**
+  - Sector expansion — broader company coverage beyond live events (sports franchises, adjacent venue operators)
+  - Valuation context — link anomalies to consensus estimates to flag beats/misses alongside the operational signal
+  - Real-time streaming quality checks
+  - Multi-user dashboard with authentication
+  - Support for private company data via secure upload
 
 ---
 
