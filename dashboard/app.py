@@ -50,14 +50,18 @@ def load_data():
     con.close()
     return financials, anomalies, explanations, submissions
 
+try:
+    financials, anomalies, explanations, submissions = load_data()
 
-financials, anomalies, explanations, submissions = load_data()
+    # Fix period_end types so merges work correctly
+    financials["period_end"] = pd.to_datetime(financials["period_end"])
+    anomalies["period_end"] = pd.to_datetime(anomalies["period_end"])
+    explanations["period_end"] = pd.to_datetime(explanations["period_end"])
 
-# Fix period_end types so merges work correctly
-financials["period_end"] = pd.to_datetime(financials["period_end"])
-anomalies["period_end"] = pd.to_datetime(anomalies["period_end"])
-explanations["period_end"] = pd.to_datetime(explanations["period_end"])
-
+except Exception as e:
+    st.error(f"Failed to load data from database: {e}")
+    st.info("Make sure the database file exists at `data/finsight_prod.duckdb` and has been populated by running the ingestion pipeline.")
+    st.stop()
 # ------------------------------------------------------------------
 # Sidebar
 # ------------------------------------------------------------------
