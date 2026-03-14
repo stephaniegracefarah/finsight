@@ -1,0 +1,26 @@
+# Environment variables - never commit real secrets
+.env
+
+# Raw data and logs - generated at runtime, too large for git
+data/raw/
+data/logs/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+
+# dbt
+target/
+dbt_packages/
+logs/
+
+# DuckDB database files
+*.duckdb
+*.duckdb.wal
+
+# OS
+.DS_Store
+Thumbs.db
